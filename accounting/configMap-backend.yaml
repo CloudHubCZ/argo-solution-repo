@@ -8,4 +8,4 @@ metadata:
 data:
   COMMUNICATION_INITIATE_ENABLED: "false"
   COMMUNICATION_FORWARD_ENABLED: "true"
-  COMMUNICATION_FORWARD_TARGET_URL: "http://persistence:8080"
+  COMMUNICATION_FORWARD_TARGET_URL: "http://persistence-service:8080"
