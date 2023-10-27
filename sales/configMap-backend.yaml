@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: ConfigMap
+metadata:
+  name: backend-cm
+  namespace: sales
+  labels:
+    app: backend
+data:
+  COMMUNICATION_INITIATE_ENABLED: false
+  COMMUNICATION_FORWARD_ENABLED: true
+  COMMUNICATION_FORWARD_TARGET_URL: "persistence:8080"

@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: persistence-service
+  namespace: accounting
+  labels:
+    app: persistence
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: persistence

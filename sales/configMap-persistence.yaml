@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: ConfigMap
+metadata:
+  name: persistence-cm
+  namespace: sales
+  labels:
+    app: persistence
+data:
+  COMMUNICATION_INITIATE_ENABLED: false
+  COMMUNICATION_FORWARD_ENABLED: false
