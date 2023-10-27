@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: davidmachacek/testapp:1.0.0
+          image: davidmachacek/testapp:1.0.4
           imagePullPolicy: Always
           ports:
             - name: http
