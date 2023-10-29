@@ -15,8 +15,3 @@ spec:
         - podSelector:
             matchLabels:
               app: backend
-  egress:
-    - to:
-        - podSelector:
-            matchLabels:
-              app: backend
