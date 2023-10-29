@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: persistence-deployment
-  namespace: sales
+  namespace: {{ .Release.Namespace }}
   labels:
     app: persistence
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   strategy:
     type: RollingUpdate
   selector:
@@ -19,8 +19,8 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: davidmachacek/testapp:1.0.4
-          imagePullPolicy: Always
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 8080

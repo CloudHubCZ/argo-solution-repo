@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
-  namespace: sales
+  name: frontend-deployment
+  namespace: {{ .Release.Namespace }}
   labels:
-    app: backend
+    app: frontend
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   strategy:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: backend
+      app: frontend
   template:
     metadata:
       labels:
-        app: backend
+        app: frontend
     spec:
       containers:
         - name: testapp
-          image: davidmachacek/testapp:1.0.4
-          imagePullPolicy: Always
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
           envFrom:
             - configMapRef:
-                name: backend-cm
+                name: frontend-cm
 

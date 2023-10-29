@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: persistence-cm
-  namespace: sales
+  namespace: {{ .Release.Namespace }}
   labels:
     app: persistence
 data:
