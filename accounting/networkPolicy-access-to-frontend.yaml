@@ -9,6 +9,12 @@ spec:
       app: frontend
   policyTypes:
     - Egress
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: backend
   egress:
     - to:
         - podSelector:
