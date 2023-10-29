@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   namespace: accounting
-  name: restrict-access-to-backend
+  name: restrict-access-to-frontend
 spec:
   podSelector:
     matchLabels:
