@@ -1,5 +1,5 @@
 kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
+apiVersion: projectcalico.org/v3
 metadata:
   namespace: accounting
   name: deny-from-other-namespaces
