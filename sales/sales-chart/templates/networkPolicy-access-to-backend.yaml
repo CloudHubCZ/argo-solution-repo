@@ -15,10 +15,17 @@ spec:
     - from:
         - podSelector:
             matchLabels:
-              app: frontend
+              app: backend
+        - podSelector:
+            matchLabels:
+              app: persistence
   egress:
     - to:
         - podSelector:
             matchLabels:
-              app: frontend
+              app: backend
+    - to:
+        - podSelector:
+            matchLabels:
+              app: persistence
 {{- end }}

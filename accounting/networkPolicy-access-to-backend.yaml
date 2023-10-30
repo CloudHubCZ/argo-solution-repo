@@ -14,15 +14,15 @@ spec:
     - from:
         - podSelector:
             matchLabels:
-              app: frontend
+              app: backend
         - podSelector:
             matchLabels:
-              app: backend
+              app: persistence
   egress:
     - to:
         - podSelector:
             matchLabels:
-              app: frontend
+              app: backend
         - podSelector:
             matchLabels:
-              app: backend
+              app: persistence

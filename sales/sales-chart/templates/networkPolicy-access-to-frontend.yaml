@@ -1,7 +1,8 @@
+{{- if .Values.networkPolicy.create.restrictAccessToFrontend -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  namespace: accounting
+  namespace: {{ .Release.Namespace }}
   name: restrict-access-to-frontend
 spec:
   podSelector:
@@ -9,8 +10,15 @@ spec:
       app: frontend
   policyTypes:
     - Egress
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: backend
   egress:
     - to:
         - podSelector:
             matchLabels:
               app: backend
+{{- end }}
