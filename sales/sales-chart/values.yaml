@@ -1,13 +1,35 @@
-replicaCount: 1
-
 image:
   repository: davidmachacek/testapp
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
   tag: "1.0.4"
+
+replicaCount: 1
 
 networkPolicy:
   create:
     restrictAccessToBackend: true
     restrictAccessToPersistence: true
     restrictAccessBetweenNamespaces: true
+    restrictAllAccess: true
+
+frontend:
+  initiate:
+    enabled: "true"
+    host: "http://backend-service:8080"
+  forward:
+    enabled: "false"
+    host:
+backend:
+  initiate:
+    enabled: "false"
+    host:
+  forward:
+    enabled: "true"
+    host: "http://persistence-service:8080"
+persistence:
+  initiate:
+    enabled: "false"
+    host:
+  forward:
+    enabled: "false"
+    host:

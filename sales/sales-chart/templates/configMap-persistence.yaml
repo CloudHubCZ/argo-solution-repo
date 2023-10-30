@@ -6,5 +6,7 @@ metadata:
   labels:
     app: persistence
 data:
-  COMMUNICATION_INITIATE_ENABLED: "false"
-  COMMUNICATION_FORWARD_ENABLED: "false"
+  COMMUNICATION_INITIATE_ENABLED: "{{ .Values.persistence.initiate.enabled }}"
+  COMMUNICATION_INITIATE_TARGET_URL: "{{ .Values.persistence.initiate.host }}"
+  COMMUNICATION_FORWARD_ENABLED: "{{ .Values.persistence.forward.enabled }}"
+  COMMUNICATION_FORWARD_TARGET_URL: "{{ .Values.persistence.forward.host }}"
