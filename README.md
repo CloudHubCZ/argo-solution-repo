@@ -1,7 +1,6 @@
 # Test solution repository for ArgoCD
 
-# Commands
-## accounting
+## Accounting
 k exec -it frontend-deployment-d5c7bc455-bpptt -n accounting -- curl http://backend-service:8080/actuator/health --max-time 3
 k exec -it frontend-deployment-d5c7bc455-bpptt -n accounting -- curl http://persistence-service:8080/actuator/health --max-time 3
 
@@ -12,7 +11,10 @@ k exec -it persistence-deployment-c8f669857-rjtfh -n accounting -- curl http://f
 k exec -it persistence-deployment-c8f669857-rjtfh -n accounting -- curl http://backend-service:8080/actuator/health --max-time 3
 
 ## Sales
+### Install Helm
 helm upgrade --install sales-chart  sales-chart -f sales-chart/values.yaml -n sales --create-namespace
+
+### Commands
 k exec -it frontend-deployment-d5c7bc455-g25zf -n sales -- curl http://backend-service:8080/actuator/health --max-time 3
 k exec -it frontend-deployment-d5c7bc455-g25zf -n sales -- curl http://persistence-service:8080/actuator/health --max-time 3
 
