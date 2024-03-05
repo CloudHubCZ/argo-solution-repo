@@ -61,4 +61,11 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "250m"
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: ScheduleAnyway
+              labelSelector:
+                matchLabels:
+                  app: persistence
 
