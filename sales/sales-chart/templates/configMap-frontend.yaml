@@ -10,3 +10,4 @@ data:
   COMMUNICATION_INITIATE_TARGET_URL: "{{ .Values.frontend.initiate.host }}"
   COMMUNICATION_FORWARD_ENABLED: "{{ .Values.frontend.forward.enabled }}"
   COMMUNICATION_FORWARD_TARGET_URL: "{{ .Values.frontend.forward.host }}"
+  APP_ENVIRONMENT: "{{ .Values.environment }}"

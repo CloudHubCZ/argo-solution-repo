@@ -1,0 +1,356 @@
+---
+# Source: sales-chart/templates/networkPolicy-access-to-backend.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: gw-dev
+  name: restrict-access-to-backend
+spec:
+  podSelector:
+    matchLabels:
+      app: backend
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: backend
+        - podSelector:
+            matchLabels:
+              app: frontend
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: backend
+    - to:
+        - podSelector:
+            matchLabels:
+              app: persistence
+---
+# Source: sales-chart/templates/networkPolicy-access-to-frontend.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: gw-dev
+  name: restrict-access-to-frontend
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+  policyTypes:
+    - Egress
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: backend
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: backend
+---
+# Source: sales-chart/templates/networkPolicy-access-to-persistence.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: gw-dev
+  name: restrict-access-to-persistence
+spec:
+  podSelector:
+    matchLabels:
+      app: persistence
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: backend
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: backend
+---
+# Source: sales-chart/templates/networkPolicy-deny-all.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: default-deny
+  namespace: gw-dev
+spec:
+  podSelector:
+    matchLabels: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: TCP
+          port: 53
+        - protocol: UDP
+          port: 53
+---
+# Source: sales-chart/templates/networkPolicy-deny-from-other-namespace.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: gw-dev
+  name: deny-from-other-namespaces
+spec:
+  podSelector:
+    matchLabels: {}
+  ingress:
+  - from:
+    - podSelector: {}
+---
+# Source: sales-chart/templates/configMap-backend.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-cm
+  namespace: gw-dev
+  labels:
+    app: backend
+data:
+  COMMUNICATION_INITIATE_ENABLED: "false"
+  COMMUNICATION_INITIATE_TARGET_URL: ""
+  COMMUNICATION_FORWARD_ENABLED: "true"
+  COMMUNICATION_FORWARD_TARGET_URL: "http://persistence-service:8080"
+  APP_ENVIRONMENT: "prod"
+---
+# Source: sales-chart/templates/configMap-frontend.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-cm
+  namespace: gw-dev
+  labels:
+    app: frontend
+data:
+  COMMUNICATION_INITIATE_ENABLED: "true"
+  COMMUNICATION_INITIATE_TARGET_URL: "http://backend-service:8080"
+  COMMUNICATION_FORWARD_ENABLED: "false"
+  COMMUNICATION_FORWARD_TARGET_URL: ""
+  APP_ENVIRONMENT: "prod"
+---
+# Source: sales-chart/templates/configMap-persistence.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: persistence-cm
+  namespace: gw-dev
+  labels:
+    app: persistence
+data:
+  COMMUNICATION_INITIATE_ENABLED: "false"
+  COMMUNICATION_INITIATE_TARGET_URL: ""
+  COMMUNICATION_FORWARD_ENABLED: "false"
+  COMMUNICATION_FORWARD_TARGET_URL: ""
+  APP_ENVIRONMENT: "prod"
+---
+# Source: sales-chart/templates/service-backend.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: gw-dev
+  labels:
+    app: backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: backend
+---
+# Source: sales-chart/templates/service-frontend.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: gw-dev
+  labels:
+    app: frontend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: frontend
+---
+# Source: sales-chart/templates/service-persistence.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: persistence-service
+  namespace: gw-dev
+  labels:
+    app: persistence
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: persistence
+---
+# Source: sales-chart/templates/deployment-backend.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: gw-dev
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: testapp
+          image: "davidmachacek/testapp:1.0.5"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: backend-cm
+---
+# Source: sales-chart/templates/deployment-frontend.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: gw-dev
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: testapp
+          image: "davidmachacek/testapp:1.0.5"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: frontend-cm
+---
+# Source: sales-chart/templates/deployment-persistence.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: persistence-deployment
+  namespace: gw-dev
+  labels:
+    app: persistence
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: persistence
+  template:
+    metadata:
+      labels:
+        app: persistence
+    spec:
+      containers:
+        - name: testapp
+          image: "davidmachacek/testapp:1.0.5"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: persistence-cm
+---
+# Source: sales-chart/templates/ingress-frontend.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTP
+  name: backend-ingress
+  namespace: gw-dev
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: frontend-prod.cloudhub.cz
+      http:
+        paths:
+          - backend:
+              service:
+                name: argocd-server
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+---
+# Source: sales-chart/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "sales-prod-sales-chart-test-connection"
+  labels:
+    helm.sh/chart: sales-chart-0.1.0
+    app.kubernetes.io/name: sales-chart
+    app.kubernetes.io/instance: sales-prod
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['sales-prod-sales-chart:8080']
+  restartPolicy: Never

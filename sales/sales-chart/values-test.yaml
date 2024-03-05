@@ -1,0 +1,41 @@
+image:
+  repository: davidmachacek/testapp
+  pullPolicy: Always
+  tag: "1.0.5"
+
+replicaCount: 1
+
+networkPolicy:
+  create:
+    restrictAccessToFrontend: true
+    restrictAccessToBackend: true
+    restrictAccessToPersistence: true
+    restrictAccessBetweenNamespaces: true
+    restrictAllAccess: true
+
+environment: "test"
+
+frontend:
+  initiate:
+    enabled: "true"
+    host: "http://backend-service:8080"
+  forward:
+    enabled: "false"
+    host:
+backend:
+  initiate:
+    enabled: "false"
+    host:
+  forward:
+    enabled: "true"
+    host: "http://persistence-service:8080"
+persistence:
+  initiate:
+    enabled: "false"
+    host:
+  forward:
+    enabled: "false"
+    host:
+
+service:
+  port: 8080
