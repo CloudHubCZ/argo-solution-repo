@@ -13,7 +13,7 @@ spec:
         paths:
           - backend:
               service:
-                name: argocd-server
+                name: service-frontend
                 port:
                   name: http
             path: /

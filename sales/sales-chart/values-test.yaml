@@ -14,6 +14,7 @@ networkPolicy:
     restrictAllAccess: true
 
 environment: "test"
+greetings: "hi dude"
 
 frontend:
   initiate:

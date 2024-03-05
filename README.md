@@ -22,4 +22,5 @@ k exec -it frontend-deployment-d5c7bc455-g25zf -n sales -- curl http://backend-s
 k exec -it frontend-deployment-d5c7bc455-g25zf -n sales -- curl http://frontend-service.accounting:8080/actuator/health --max-time 3
 
 
-
+helm template sales-prod sales-chart -f sales-chart/values-prod.yaml -n sales-prod > prod/template.yam
+helm template sales-test sales-chart -f sales-chart/values-test.yaml -n sales-test > test/template.yaml
