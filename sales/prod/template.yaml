@@ -30,6 +30,26 @@ spec:
             matchLabels:
               app: persistence
 ---
+# Source: sales-chart/templates/networkPolicy-access-to-frontend.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  namespace: sales-prod
+  name: restrict-access-to-frontend
+spec:
+  podSelector:
+    matchLabels:
+      app: frontend
+  policyTypes:
+    - Egress
+    - Ingress
+  ingress:
+    - from:
+        - {}
+  egress:
+    - to:
+        - {}
+---
 # Source: sales-chart/templates/networkPolicy-access-to-persistence.yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

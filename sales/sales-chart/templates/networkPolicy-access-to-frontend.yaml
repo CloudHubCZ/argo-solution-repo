@@ -1,4 +1,3 @@
-{{- if .Values.networkPolicy.create.restrictAccessToFrontend -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -13,12 +12,19 @@ spec:
     - Ingress
   ingress:
     - from:
+        {{- if .Values.networkPolicy.create.restrictAccessToFrontend -}}
         - podSelector:
             matchLabels:
               app: backend
+        {{- else }}
+        - {}
+        {{- end }}
   egress:
     - to:
+        {{- if .Values.networkPolicy.create.restrictAccessToFrontend -}}
         - podSelector:
             matchLabels:
               app: backend
-{{- end }}
+        {{- else }}
+        - {}
+        {{- end }}
