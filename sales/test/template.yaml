@@ -242,6 +242,37 @@ spec:
           envFrom:
             - configMapRef:
                 name: backend-cm
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            periodSeconds: 5
+            initialDelaySeconds: 40
+            failureThreshold: 2
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            periodSeconds: 5
+            initialDelaySeconds: 40
+            failureThreshold: 1
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            failureThreshold: 25
+            periodSeconds: 10
+            initialDelaySeconds: 60
+            timeoutSeconds: 2
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "20m"
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
 ---
 # Source: sales-chart/templates/deployment-frontend.yaml
 apiVersion: apps/v1
@@ -276,6 +307,37 @@ spec:
           envFrom:
             - configMapRef:
                 name: frontend-cm
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            periodSeconds: 5
+            initialDelaySeconds: 40
+            failureThreshold: 2
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            periodSeconds: 5
+            initialDelaySeconds: 40
+            failureThreshold: 1
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            failureThreshold: 25
+            periodSeconds: 10
+            initialDelaySeconds: 60
+            timeoutSeconds: 2
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "20m"
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
 ---
 # Source: sales-chart/templates/deployment-persistence.yaml
 apiVersion: apps/v1
@@ -310,6 +372,37 @@ spec:
           envFrom:
             - configMapRef:
                 name: persistence-cm
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            periodSeconds: 5
+            initialDelaySeconds: 40
+            failureThreshold: 2
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            periodSeconds: 5
+            initialDelaySeconds: 40
+            failureThreshold: 1
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            failureThreshold: 25
+            periodSeconds: 10
+            initialDelaySeconds: 60
+            timeoutSeconds: 2
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "20m"
+            limits:
+              memory: "512Mi"
+              cpu: "250m"
 ---
 # Source: sales-chart/templates/ingress-frontend.yaml
 apiVersion: networking.k8s.io/v1
