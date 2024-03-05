@@ -233,7 +233,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: "davidmachacek/testapp:1.0.7"
+          image: "davidmachacek/testapp:1.0.8"
           imagePullPolicy: Always
           ports:
             - name: http
@@ -305,7 +305,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: "davidmachacek/testapp:1.0.7"
+          image: "davidmachacek/testapp:1.0.8"
           imagePullPolicy: Always
           ports:
             - name: http
@@ -377,7 +377,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: "davidmachacek/testapp:1.0.7"
+          image: "davidmachacek/testapp:1.0.8"
           imagePullPolicy: Always
           ports:
             - name: http
