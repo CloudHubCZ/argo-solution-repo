@@ -139,7 +139,7 @@ data:
   COMMUNICATION_FORWARD_ENABLED: "false"
   COMMUNICATION_FORWARD_TARGET_URL: ""
   APP_ENVIRONMENT: "prod"
-  GREETINGS: "hello"
+  GREETINGS: "Guten tag"
 ---
 # Source: sales-chart/templates/configMap-persistence.yaml
 apiVersion: v1
@@ -261,7 +261,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 2b7f9319e1f78262a7d717de4c8c8ffa9dcc07a304a0885ceecc372fd7fa1891
+        checksum/config: e1b6dceef19bab17d71b5764295cc742716b8f7d34f09bc185aecf77645e9412
       labels:
         app: frontend
     spec:
