@@ -238,7 +238,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: "davidmachacek/testapp:1.0.5"
+          image: "davidmachacek/testapp:1.0.6"
           imagePullPolicy: Always
           ports:
             - name: http
@@ -270,7 +270,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: "davidmachacek/testapp:1.0.5"
+          image: "davidmachacek/testapp:1.0.6"
           imagePullPolicy: Always
           ports:
             - name: http
@@ -302,7 +302,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: "davidmachacek/testapp:1.0.5"
+          image: "davidmachacek/testapp:1.0.6"
           imagePullPolicy: Always
           ports:
             - name: http
@@ -328,7 +328,7 @@ spec:
         paths:
           - backend:
               service:
-                name: argocd-server
+                name: service-frontend
                 port:
                   name: http
             path: /
