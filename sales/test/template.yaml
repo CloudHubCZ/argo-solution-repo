@@ -124,7 +124,6 @@ data:
   COMMUNICATION_INITIATE_TARGET_URL: ""
   COMMUNICATION_FORWARD_ENABLED: "true"
   COMMUNICATION_FORWARD_TARGET_URL: "http://persistence-service:8080"
-  APP_ENVIRONMENT: "test"
 ---
 # Source: sales-chart/templates/configMap-frontend.yaml
 apiVersion: v1
@@ -140,6 +139,7 @@ data:
   COMMUNICATION_FORWARD_ENABLED: "false"
   COMMUNICATION_FORWARD_TARGET_URL: ""
   APP_ENVIRONMENT: "test"
+  GREETINGS: "hi dude"
 ---
 # Source: sales-chart/templates/configMap-persistence.yaml
 apiVersion: v1
@@ -154,7 +154,6 @@ data:
   COMMUNICATION_INITIATE_TARGET_URL: ""
   COMMUNICATION_FORWARD_ENABLED: "false"
   COMMUNICATION_FORWARD_TARGET_URL: ""
-  APP_ENVIRONMENT: "test"
 ---
 # Source: sales-chart/templates/service-backend.yaml
 apiVersion: v1

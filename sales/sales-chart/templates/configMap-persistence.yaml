@@ -10,4 +10,3 @@ data:
   COMMUNICATION_INITIATE_TARGET_URL: "{{ .Values.persistence.initiate.host }}"
   COMMUNICATION_FORWARD_ENABLED: "{{ .Values.persistence.forward.enabled }}"
   COMMUNICATION_FORWARD_TARGET_URL: "{{ .Values.persistence.forward.host }}"
-  APP_ENVIRONMENT: "{{ .Values.environment }}"
