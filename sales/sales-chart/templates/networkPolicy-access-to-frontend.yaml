@@ -11,20 +11,20 @@ spec:
     - Egress
     - Ingress
   ingress:
+    {{- if .Values.networkPolicy.create.restrictAccessToFrontend -}}
     - from:
-        {{- if .Values.networkPolicy.create.restrictAccessToFrontend -}}
         - podSelector:
             matchLabels:
               app: backend
-        {{- else }}
-        - {}
-        {{- end }}
+    {{- else }}
+    - {}
+    {{- end }}
   egress:
+    {{- if .Values.networkPolicy.create.restrictAccessToFrontend -}}
     - to:
-        {{- if .Values.networkPolicy.create.restrictAccessToFrontend -}}
         - podSelector:
             matchLabels:
               app: backend
-        {{- else }}
-        - {}
-        {{- end }}
+    {{- else }}
+    - {}
+    {{- end }}
