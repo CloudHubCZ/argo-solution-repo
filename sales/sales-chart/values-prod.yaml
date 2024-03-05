@@ -7,7 +7,7 @@ replicaCount: 1
 
 networkPolicy:
   create:
-    restrictAccessToFrontend: true
+    restrictAccessToFrontend: false
     restrictAccessToBackend: true
     restrictAccessToPersistence: true
     restrictAccessBetweenNamespaces: true
