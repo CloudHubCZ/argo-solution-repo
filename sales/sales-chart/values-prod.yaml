@@ -14,7 +14,7 @@ networkPolicy:
     restrictAllAccess: true
 
 environment: "prod"
-greetings: "hello"
+greetings: "Guten tag"
 
 frontend:
   initiate:
