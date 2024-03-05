@@ -226,6 +226,8 @@ spec:
       app: backend
   template:
     metadata:
+      annotations:
+        checksum/config: 496275209ba87f74504b6ff7bf62012973c8d0fbb57c5a9ea65ea5d226bbe249
       labels:
         app: backend
     spec:
@@ -258,6 +260,8 @@ spec:
       app: frontend
   template:
     metadata:
+      annotations:
+        checksum/config: 82811e142908618ff62cfb485eca4ac98047b0d6e8d513755498dba3e89a78fc
       labels:
         app: frontend
     spec:
@@ -290,6 +294,8 @@ spec:
       app: persistence
   template:
     metadata:
+      annotations:
+        checksum/config: 0745f4c3d0e360b001db5c1e3b357b1abe5d70cd4e9191e25590c88a565323a4
       labels:
         app: persistence
     spec:
