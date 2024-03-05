@@ -328,7 +328,7 @@ spec:
         paths:
           - backend:
               service:
-                name: service-frontend
+                name: frontend-service
                 port:
                   name: http
             path: /
