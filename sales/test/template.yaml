@@ -3,7 +3,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  namespace: gw-dev
+  namespace: sales-test
   name: restrict-access-to-backend
 spec:
   podSelector:
@@ -34,7 +34,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  namespace: gw-dev
+  namespace: sales-test
   name: restrict-access-to-frontend
 spec:
   podSelector:
@@ -58,7 +58,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  namespace: gw-dev
+  namespace: sales-test
   name: restrict-access-to-persistence
 spec:
   podSelector:
@@ -83,7 +83,7 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: default-deny
-  namespace: gw-dev
+  namespace: sales-test
 spec:
   podSelector:
     matchLabels: {}
@@ -108,7 +108,7 @@ spec:
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  namespace: gw-dev
+  namespace: sales-test
   name: deny-from-other-namespaces
 spec:
   podSelector:
@@ -122,7 +122,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: backend-cm
-  namespace: gw-dev
+  namespace: sales-test
   labels:
     app: backend
 data:
@@ -137,7 +137,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: frontend-cm
-  namespace: gw-dev
+  namespace: sales-test
   labels:
     app: frontend
 data:
@@ -152,7 +152,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: persistence-cm
-  namespace: gw-dev
+  namespace: sales-test
   labels:
     app: persistence
 data:
@@ -167,7 +167,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend-service
-  namespace: gw-dev
+  namespace: sales-test
   labels:
     app: backend
 spec:
@@ -185,7 +185,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend-service
-  namespace: gw-dev
+  namespace: sales-test
   labels:
     app: frontend
 spec:
@@ -203,7 +203,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: persistence-service
-  namespace: gw-dev
+  namespace: sales-test
   labels:
     app: persistence
 spec:
@@ -221,7 +221,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
-  namespace: gw-dev
+  namespace: sales-test
   labels:
     app: backend
 spec:
@@ -253,7 +253,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
-  namespace: gw-dev
+  namespace: sales-test
   labels:
     app: frontend
 spec:
@@ -285,7 +285,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: persistence-deployment
-  namespace: gw-dev
+  namespace: sales-test
   labels:
     app: persistence
 spec:
@@ -319,7 +319,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/backend-protocol: HTTP
   name: backend-ingress
-  namespace: gw-dev
+  namespace: sales-test
 spec:
   ingressClassName: nginx
   rules:
