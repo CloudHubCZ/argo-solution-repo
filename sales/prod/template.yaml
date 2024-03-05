@@ -111,6 +111,39 @@ spec:
   - from:
     - podSelector: {}
 ---
+# Source: sales-chart/templates/podDisruptionBudget.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: backend-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: backend
+---
+# Source: sales-chart/templates/podDisruptionBudget.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: frontend-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: frontend
+---
+# Source: sales-chart/templates/podDisruptionBudget.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: persistence-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: persistence
+---
 # Source: sales-chart/templates/configMap-backend.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -218,7 +251,7 @@ metadata:
   labels:
     app: backend
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
   selector:
@@ -252,7 +285,7 @@ metadata:
   labels:
     app: frontend
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
   selector:
@@ -286,7 +319,7 @@ metadata:
   labels:
     app: persistence
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
   selector:

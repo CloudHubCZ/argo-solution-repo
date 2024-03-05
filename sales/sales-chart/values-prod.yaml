@@ -3,7 +3,8 @@ image:
   pullPolicy: Always
   tag: "1.0.7"
 
-replicaCount: 1
+replicaCount: 2
+pdbEnabled: true
 
 networkPolicy:
   create:
