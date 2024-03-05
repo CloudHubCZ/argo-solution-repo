@@ -1,7 +1,7 @@
 image:
   repository: davidmachacek/testapp
   pullPolicy: Always
-  tag: "1.0.6"
+  tag: "1.0.7"
 
 replicaCount: 1
 
