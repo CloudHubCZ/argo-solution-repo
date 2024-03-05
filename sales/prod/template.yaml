@@ -266,7 +266,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: "davidmachacek/testapp:1.0.7"
+          image: "davidmachacek/testapp:1.0.8"
           imagePullPolicy: Always
           ports:
             - name: http
@@ -280,7 +280,7 @@ spec:
               path: /actuator/health/readiness
               port: 8080
             periodSeconds: 5
-            initialDelaySeconds: 40
+            initialDelaySeconds: 20
             failureThreshold: 2
             timeoutSeconds: 2
           livenessProbe:
@@ -288,7 +288,7 @@ spec:
               path: /actuator/health/liveness
               port: 8080
             periodSeconds: 5
-            initialDelaySeconds: 40
+            initialDelaySeconds: 20
             failureThreshold: 1
             timeoutSeconds: 2
           startupProbe:
@@ -297,7 +297,7 @@ spec:
               port: 8080
             failureThreshold: 25
             periodSeconds: 10
-            initialDelaySeconds: 60
+            initialDelaySeconds: 20
             timeoutSeconds: 2
           resources:
             requests:
@@ -338,7 +338,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: "davidmachacek/testapp:1.0.7"
+          image: "davidmachacek/testapp:1.0.8"
           imagePullPolicy: Always
           ports:
             - name: http
@@ -410,7 +410,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: "davidmachacek/testapp:1.0.7"
+          image: "davidmachacek/testapp:1.0.8"
           imagePullPolicy: Always
           ports:
             - name: http
