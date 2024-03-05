@@ -423,26 +423,26 @@ spec:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
-            periodSeconds: 5
-            initialDelaySeconds: 40
-            failureThreshold: 2
-            timeoutSeconds: 2
+            periodSeconds: 10
+            initialDelaySeconds: 30
+            failureThreshold: 5
+            timeoutSeconds: 5
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
-            periodSeconds: 5
-            initialDelaySeconds: 40
-            failureThreshold: 1
-            timeoutSeconds: 2
+            periodSeconds: 10
+            initialDelaySeconds: 30
+            failureThreshold: 3
+            timeoutSeconds: 5
           startupProbe:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
             failureThreshold: 25
-            periodSeconds: 10
-            initialDelaySeconds: 60
-            timeoutSeconds: 2
+            periodSeconds: 5
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
           resources:
             requests:
               memory: "64Mi"
