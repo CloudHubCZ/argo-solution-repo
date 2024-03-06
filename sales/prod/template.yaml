@@ -172,7 +172,7 @@ data:
   COMMUNICATION_FORWARD_ENABLED: "false"
   COMMUNICATION_FORWARD_TARGET_URL: ""
   APP_ENVIRONMENT: "prod"
-  GREETINGS: "Hello"
+  GREETINGS: "Ahoj"
 ---
 # Source: sales-chart/templates/configMap-persistence.yaml
 apiVersion: v1
@@ -332,7 +332,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: e8f5f6e46d12801ef7b049b17d3ca123bd21c68cbc53cb4e6b8b0f45e6e088cc
+        checksum/config: 1d83661e5dd5da45416d42e630c79bd221099f13997dac5e121621d9187577a4
       labels:
         app: frontend
     spec:

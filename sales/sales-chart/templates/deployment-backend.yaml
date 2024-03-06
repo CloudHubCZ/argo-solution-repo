@@ -54,6 +54,7 @@ spec:
             periodSeconds: 10
             initialDelaySeconds: 20
             timeoutSeconds: 2
+          {{- if .Values.enableResources }}
           resources:
             requests:
               memory: "64Mi"
@@ -61,6 +62,7 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "250m"
+          {{- end }}
 #          topologySpreadConstraints:
 #            - maxSkew: 1
 #              topologyKey: kubernetes.io/hostname
