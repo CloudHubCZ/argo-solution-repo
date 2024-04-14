@@ -20,6 +20,8 @@ spec:
           name: nexus
           ports:
             - containerPort: 8081
+            - containerPort: 8082
+            - containerPort: 8083
 ---
 apiVersion: v1
 kind: Service
@@ -32,6 +34,14 @@ spec:
       port: 8081
       protocol: TCP
       targetPort: 8081
+    - name: sonatype-registry2
+      port: 8082
+      protocol: TCP
+      targetPort: 8082
+    - name: sonatype-registry3
+      port: 8083
+      protocol: TCP
+      targetPort: 8083
   selector:
     app: sonatype-registry
   type: LoadBalancer
