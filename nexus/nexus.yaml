@@ -22,6 +22,14 @@ spec:
             - containerPort: 8081
             - containerPort: 8082
             - containerPort: 8083
+          volumeMounts:
+            - name: registry-vol
+              mountPath: /nexus-data
+              subPath: sonatype
+      volumes:
+        - name: registry-vol
+          persistentVolumeClaim:
+            claimName: sonatype-registry-data
 ---
 apiVersion: v1
 kind: Service
@@ -45,3 +53,17 @@ spec:
   selector:
     app: sonatype-registry
   type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sonatype-registry-data
+  namespace: nexus
+spec:
+  storageClassName: azurefile
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
