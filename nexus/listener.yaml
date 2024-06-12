@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nexus-listener
+  namespace: nexus
+  labels:
+    app: nexus-listener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nexus-listener
+  template:
+    metadata:
+      labels:
+        app: nexus-listener
+    spec:
+      containers:
+        #- image: davidmachacek/nexus-listener:20240416.5
+        - image: davidmachacek/nexus-listener:20240417.3
+          name: nexus-listener
+          ports:
+            - containerPort: 8080
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          volumeMounts:
+            - name: docker-sock
+              mountPath: /var/run/docker.sock
+      volumes:
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nexus-listener
+  namespace: nexus
+spec:
+  ports:
+    - name: nexus-listener
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: nexus-listener
+  type: LoadBalancer

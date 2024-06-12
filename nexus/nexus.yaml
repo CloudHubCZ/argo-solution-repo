@@ -29,7 +29,7 @@ spec:
       volumes:
         - name: registry-vol
           persistentVolumeClaim:
-            claimName: sonatype-registry-data
+            claimName: sonatype-registry-data-last
 ---
 apiVersion: v1
 kind: Service
@@ -57,7 +57,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonatype-registry-data
+  name: sonatype-registry-data-last
   namespace: nexus
 spec:
   storageClassName: azurefile
@@ -65,5 +65,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 20Gi
 ---

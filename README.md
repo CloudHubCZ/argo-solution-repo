@@ -1,5 +1,14 @@
 # Test solution repository for ArgoCD
 
+## Prerequisites
+### Install Nginx
+helm upgrade --install ingress-nginx ingress-nginx \
+--repo https://kubernetes.github.io/ingress-nginx \
+--namespace ingress-nginx --create-namespace
+
+# Install ArgoCD
+
+
 ## Accounting
 k exec -it frontend-deployment-d5c7bc455-bpptt -n accounting -- curl http://backend-service:8080/actuator/health --max-time 3
 k exec -it frontend-deployment-d5c7bc455-bpptt -n accounting -- curl http://persistence-service:8080/actuator/health --max-time 3
