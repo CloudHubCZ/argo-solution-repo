@@ -139,7 +139,7 @@ data:
   COMMUNICATION_FORWARD_ENABLED: "false"
   COMMUNICATION_FORWARD_TARGET_URL: ""
   APP_ENVIRONMENT: "test"
-  GREETINGS: "hi dude"
+  GREETINGS: "cau"
 ---
 # Source: sales-chart/templates/configMap-persistence.yaml
 apiVersion: v1
@@ -266,13 +266,6 @@ spec:
             periodSeconds: 10
             initialDelaySeconds: 20
             timeoutSeconds: 2
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "20m"
-            limits:
-              memory: "512Mi"
-              cpu: "250m"
 #          topologySpreadConstraints:
 #            - maxSkew: 1
 #              topologyKey: kubernetes.io/hostname
@@ -299,7 +292,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 82811e142908618ff62cfb485eca4ac98047b0d6e8d513755498dba3e89a78fc
+        checksum/config: d6cfecb0493d862ab8d28bf61a3219583715555adc9c8e2a1843e34ed308216a
       labels:
         app: frontend
     spec:

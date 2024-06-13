@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sales-test
+  namespace: argocd
+spec:
+  destination:
+    namespace: sales-test
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: sales/test
+    repoURL: https://github.com/CloudHubCZ/argo-solution-repo.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
