@@ -34,5 +34,7 @@ k exec -it frontend-deployment-d5c7bc455-g25zf -n sales -- curl http://frontend-
 helm template sales-prod sales-chart -f sales-chart/values-prod.yaml -n sales-prod > prod/template.yaml && \
 helm template sales-test sales-chart -f sales-chart/values-test.yaml -n sales-test > test/template.yaml
 
+git commit -am "Commit" && git push
 
+curl frontend-test.cloudhub.cz/hello -vvvv
 curl frontend-prod.cloudhub.cz/hello -vvvv
